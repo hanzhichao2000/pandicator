@@ -15,6 +15,5 @@ class TestSeries(unittest.TestCase):
         from pandicator.series import RSI
         rsi = RSI(self.x)
         self.assertTrue(len(rsi) == self.SIZE)
-
-        print self.x
-        print rsi
+        self.assertTrue(np.max(rsi)<=100)
+        self.assertTrue(np.min(rsi)>=0)
