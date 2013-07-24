@@ -1,19 +1,14 @@
-import unittest
-
 import numpy as np
 
 import pandicator as pi
+from pandicator.series import rsi
 
-class TestSeries(unittest.TestCase):
+from test import PITestCase
 
-    SIZE = 50
+class TestSeries(PITestCase):
 
-    def setUp(self):
-        self.x = np.random.rand(self.SIZE)
-
-    def testRSI(self):
-        from pandicator.series import RSI
-        rsi = RSI(self.x)
-        self.assertTrue(len(rsi) == self.SIZE)
-        self.assertTrue(np.max(rsi)<=100)
-        self.assertTrue(np.min(rsi)>=0)
+    def test_rsi(self):
+        y = rsi(self.x)
+        self.assertTrue(len(y) == self.SIZE)
+        self.assertTrue(np.max(y)<=100)
+        self.assertTrue(np.min(y)>=0)

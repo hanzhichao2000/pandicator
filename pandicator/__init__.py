@@ -1,2 +1,2 @@
-from pandicator.ma import SMA
-from pandicator.series import RSI
+from pandicator.ma import sma, ema
+from pandicator.series import rsi

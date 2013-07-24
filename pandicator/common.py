@@ -4,16 +4,14 @@ This module contains some common methods.
 
 import pandas as pd
 
-def apply_series(fn):
-    def _apply_series(*args, **kwargs):
-        if 'x' in kwargs:
-            x = kwargs['x']
-            if not isinstance(x, pd.Series):
-                kwargs['x'] = pd.Series(x)
-        else:
-            x = args[0]
-            if not isinstance(x, pd.Series):
-                args = list(args)
-                args[0] = pd.Series(x)
-        return fn(*args, **kwargs)
-    return _apply_series
+def safe_series(arg):
+    '''Returns arg as a pandas.Series.'''
+    if not isinstance(arg, pd.Series):
+        return pd.Series(arg)
+    return arg
+
+def safe_name(arg, name):
+    if arg.name is None:
+        arg.name = name
+    else:
+        arg.name = '%s(%s)' % (name, arg.name)

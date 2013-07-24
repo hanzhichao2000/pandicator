@@ -1,17 +1,24 @@
-import unittest
+from pandicator import ma
 
-import numpy as np
+from test import PITestCase
 
-import pandicator as pi
+class TestMA(PITestCase):
 
-class TestMA(unittest.TestCase):
+    def test_sma(self):
+        ma.sma(self.x)
 
-    SIZE = 50
+    def test_ema(self):
+        ma.ema(self.x, ratio=0.1)
 
-    def setUp(self):
-        self.x = np.random.rand(self.SIZE)
+    def test_py_ema(self):
+        ma.py_ema(self.x)
 
-    def testSMA(self):
-        from pandicator.ma import SMA
-        sma = SMA(self.x)
-        self.assertTrue(len(sma) == self.SIZE)
+    def test_pd_ema(self):
+        ma.pd_ema(self.x)
+
+    def test_ema_eq(self):
+        ema = ma.ema(self.x, ratio=0.9)
+        pyema = ma.py_ema(self.x, ratio=0.9)
+        pdema = ma.pd_ema(self.x, ratio=0.1)
+        self.assert_eq(ema, pyema)
+        self.assert_eq(ema, pdema)
