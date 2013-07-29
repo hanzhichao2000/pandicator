@@ -5,7 +5,7 @@ import pandas as pd
 
 class PITestCase(unittest.TestCase):
 
-    SIZE = 10000
+    SIZE = 50000
 
     def setUp(self):
         rng = np.random.RandomState(123)
