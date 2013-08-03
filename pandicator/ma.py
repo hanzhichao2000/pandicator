@@ -57,7 +57,7 @@ def ema(arg, window=10, ratio=None, wilder=False):
         if wilder:
             ratio = 1.0 / window
         else:
-            ratio = 1.0 / (2*window+1)
+            ratio = 2.0 / (window+1)
     rval = copy.copy(np.asarray(arg))
     rval = pd.Series(cma.ema(rval, ratio))
     com.safe_name(rval, name='EMA')

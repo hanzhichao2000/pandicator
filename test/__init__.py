@@ -10,6 +10,9 @@ class PITestCase(unittest.TestCase):
     def setUp(self):
         rng = np.random.RandomState(123)
         self.x = pd.Series(rng.rand(self.SIZE), name='X')
+        self.hlc = pd.DataFrame(dict(High=rng.rand(self.SIZE) + 2,
+                                     Low=rng.rand(self.SIZE) - 2,
+                                     Close=rng.rand(self.SIZE)))
 
     def assert_eq(self, arg0, arg1):
-        self.assertTrue(np.abs(arg0-arg1).mean()<1e-6)
+        self.assertTrue(np.abs(arg0-arg1).mean() < 1e-4)
