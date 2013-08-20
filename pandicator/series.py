@@ -39,5 +39,6 @@ def rsi(arg, window=14, ma_type='ema'):
 
     rval.name = arg.name
     com.safe_name(rval, name='RSI')
+    rval.index = arg.index
 
     return rval
