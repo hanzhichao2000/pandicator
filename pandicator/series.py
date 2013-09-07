@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 import pandicator as pi
-from pandicator import common as com, ma
+from pandicator import utils, ma
 
 
 def rsi(arg, window=14, ma_type='ema'):
@@ -25,7 +25,7 @@ def rsi(arg, window=14, ma_type='ema'):
         RSI=100-\\frac{100}{1+RS}
     '''
 
-    arg = com.safe_series(arg)
+    arg = utils.safe_series(arg)
     ma_fn = eval('ma.%s'%ma_type)
 
     last = arg.shift(1).fillna(0)
@@ -38,7 +38,7 @@ def rsi(arg, window=14, ma_type='ema'):
     rval = 100 - 100 / (1+rs)
 
     rval.name = arg.name
-    com.safe_name(rval, name='RSI')
+    utils.safe_name(rval, name='RSI')
     rval.index = arg.index
 
     return rval

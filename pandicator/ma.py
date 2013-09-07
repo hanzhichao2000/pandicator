@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from pandas.stats.moments import ewma
 
-from pandicator import common as com
+from pandicator import utils
 from pandicator import cma
 
 
@@ -25,9 +25,9 @@ def sma(arg, window=10):
 
     .. [#] http://www.investopedia.com/terms/s/sma.asp
     '''
-    arg = com.safe_series(arg)
+    arg = utils.safe_series(arg)
     rval = pd.rolling_mean(arg, window)
-    com.safe_name(rval, name='SMA')
+    utils.safe_name(rval, name='SMA')
     return rval
 
 
@@ -40,15 +40,15 @@ def py_ema(arg, window=10, ratio=None, wilder=False):
     rval = pd.Series(copy.copy(arg))
     for i in xrange(1, len(rval)):
         rval[i] = rval[i-1] + ratio * (arg[i] - rval[i-1])
-    com.safe_name(rval, name='pyEMA')
+    utils.safe_name(rval, name='pyEMA')
     return rval
 
 
 def pd_ema(arg, ratio=0.1):
     span = 2.0 / (1-ratio) - 1
-    arg = com.safe_series(arg)
+    arg = utils.safe_series(arg)
     rval = ewma(arg, span=span)
-    com.safe_name(rval, name='pdEMA')
+    utils.safe_name(rval, name='pdEMA')
     return rval
 
 
@@ -60,5 +60,5 @@ def ema(arg, window=10, ratio=None, wilder=False):
             ratio = 2.0 / (window+1)
     rval = copy.copy(np.asarray(arg))
     rval = pd.Series(cma.ema(rval, ratio))
-    com.safe_name(rval, name='EMA')
+    utils.safe_name(rval, name='EMA')
     return rval

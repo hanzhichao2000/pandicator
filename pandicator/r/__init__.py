@@ -19,7 +19,10 @@ def to_r_obj(dataframe):
 
 def r_inside(function):
     def _r_inside(*args, **kwargs):
-        rdata = [to_r_obj(e) for e in args]
+        rdata = [to_r_obj(e)
+                 if isinstance(e, (pd.Series, pd.DataFrame))
+                 else e
+                 for e in args]
         res = function(*rdata, **kwargs)
         tmpres = rpycom.convert_robj(res)
         dfres = pd.DataFrame(tmpres)
