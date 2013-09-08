@@ -15,3 +15,6 @@ class TestTTR(PITestCase):
 
     def test_EMA(self):
         ttr.ema(self.x)
+        
+    def test_wilderSum(self):
+        ttr.wilderSum(self.x)

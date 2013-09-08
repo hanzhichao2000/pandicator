@@ -10,7 +10,7 @@ import pandas as pd
 from pandas.stats.moments import ewma
 
 from pandicator import utils
-from pandicator import cma
+from pandicator import fast
 
 
 def sma(arg, window=10):
@@ -59,6 +59,6 @@ def ema(arg, window=10, ratio=None, wilder=False):
         else:
             ratio = 2.0 / (window+1)
     rval = copy.copy(np.asarray(arg))
-    rval = pd.Series(cma.ema(rval, ratio))
+    rval = pd.Series(fast.ema(rval, ratio))
     utils.safe_name(rval, name='EMA')
     return rval

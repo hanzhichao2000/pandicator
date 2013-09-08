@@ -7,7 +7,7 @@ import pandas as pd
 
 import pandicator as pi
 from pandicator import utils, ma
-
+from pandicator import fast
 
 def rsi(arg, window=14, ma_type='ema'):
     ''' Relative strength index
@@ -41,4 +41,13 @@ def rsi(arg, window=14, ma_type='ema'):
     utils.safe_name(rval, name='RSI')
     rval.index = arg.index
 
+    return rval
+
+def wilder_sum(arg, window=14):
+    arg = utils.safe_series(arg)
+    rval = fast.wilder_sum(arg, window)
+    rval.name = arg.name
+    utils.safe_name(rval, name='wilderSum')
+    rval.index = arg.index
+    
     return rval

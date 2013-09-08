@@ -2,30 +2,32 @@ import copy
 import numpy as np
 import pandas as pd
 
+from pandicator import fast
 from pandicator import utils
 from pandicator import ma
-# TODO: TESTCASE!
+
 
 def adx(hlc, window=14, atr_=None):
     if atr_ is None: 
         atr_ = atr(hlc, window)
-    high, low, close = utils.safe_hlc(hlc)
+    high, low, _= utils.safe_hlc(hlc)
 
     up_move = high-high.shift(1)
     down_move = low.shift(1)-low
     
-    pos_dm = ((up_move>down_move)*(up_move>0)).astype(np.float)
-    neg_dm = ((down_move>up_move)*(down_move>0)).astype(np.float)
+    pos_dm = ((up_move>down_move)*(up_move>0)*(up_move)).astype(np.float)
+    neg_dm = ((down_move>up_move)*(down_move>0)*(down_move)).astype(np.float)
     
-    tr_sum = pd.rolling_sum(atr_.tr, window)
+    tr_sum = fast.wilder_sum(atr_.tr, window)
     
-    DIp = 100 * pd.rolling_sum(pos_dm, window) / tr_sum
-    DIn = 100 * pd.rolling_sum(neg_dm, window) / tr_sum
+    DIp = 100 * fast.wilder_sum(pos_dm, window) / tr_sum
+    DIn = 100 * fast.wilder_sum(neg_dm, window) / tr_sum
 
     dx = 100 * np.abs((DIp-DIn)/(DIp+DIn))
     adx = ma.ema(dx, window=window)
 
     return pd.DataFrame(dict(DIp=DIp, DIn=DIn, DX=dx, ADX=adx), index=hlc.index)
+
 
 def atr(hlc, window=14):
     high, low, close = utils.safe_hlc(hlc)

@@ -33,6 +33,7 @@ class TTR:
     WPR = R['WPR']
     adjRatios = R['adjRatios']
     aroon = R['aroon']
+    wilderSum = R['wilderSum']
 
 
 @r.r_inside
@@ -58,5 +59,8 @@ def rsi(arg, n=14, maType=TTR.SMA):
     '''RSI'''
     return TTR.RSI(arg, n, maType)
 
-
+@r.r_inside
+def wilderSum(arg, n=14):
+    '''wilderSum'''
+    return TTR.wilderSum(arg, n)
 

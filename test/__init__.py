@@ -32,6 +32,7 @@ class PITestCase(unittest.TestCase):
             for col in arg0:
                 for a in args[1: ]:
                     self.assertTrue(
-                        np.allclose(arg0[col][-200: ], a[col][-200: ]))
+                        np.allclose(arg0[col][-200: ], a[col][-200: ]),
+                        '%s should be all close!' % col)
         else:
             raise NotImplementedError()

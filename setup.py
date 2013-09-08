@@ -6,7 +6,7 @@ from Cython.Distutils import build_ext
 
 ext_modules = [
     Extension(
-        "pandicator.cma", ["pandicator/cma.pyx"],
+        "pandicator.fast", ["pandicator/fast.pyx"],
         libraries=[], include_dirs=[np.get_include()],
         extra_compile_args=['-fopenmp'],
         extra_link_args=['-fopenmp'],)]
