@@ -14,17 +14,7 @@ from pandicator import fast
 
 
 def sma(arg, window=10):
-    '''
-    Simple Mean Average [#]_
-
-    :type arg: pandas.Series
-    :param arg: A series. e.g. price, volume.
-
-    :type window: int
-    :param window: The number of the period to apply the method.
-
-    .. [#] http://www.investopedia.com/terms/s/sma.asp
-    '''
+    ''' Simple Mean Average '''
     arg = utils.safe_series(arg)
     rval = pd.rolling_mean(arg, window)
     utils.safe_name(rval, name='SMA')
@@ -32,6 +22,7 @@ def sma(arg, window=10):
 
 
 def py_ema(arg, window=10, ratio=None, wilder=False):
+    ''' EMA, implemented in pure Python '''
     if ratio is None:
         if wilder:
             ratio = 1.0 / window
@@ -45,6 +36,7 @@ def py_ema(arg, window=10, ratio=None, wilder=False):
 
 
 def pd_ema(arg, ratio=0.1):
+    ''' EMA, implemented with `pandas.stats.moments.ewma` '''
     span = 2.0 / (1-ratio) - 1
     arg = utils.safe_series(arg)
     rval = ewma(arg, span=span)
@@ -53,6 +45,7 @@ def pd_ema(arg, ratio=0.1):
 
 
 def ema(arg, window=10, ratio=None, wilder=False):
+    ''' EMA, implemented in Cython '''
     if ratio is None:
         if wilder:
             ratio = 1.0 / window

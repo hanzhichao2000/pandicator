@@ -8,6 +8,7 @@ from pandicator import ma
 
 
 def adx(hlc, window=14, atr_=None):
+    ''' ADX '''
     if atr_ is None: 
         atr_ = atr(hlc, window)
     high, low, _= utils.safe_hlc(hlc)
@@ -30,6 +31,7 @@ def adx(hlc, window=14, atr_=None):
 
 
 def atr(hlc, window=14):
+    ''' ATR '''
     high, low, close = utils.safe_hlc(hlc)
     close_tm1 = close.shift(1)
     true_high = (high>=close_tm1)*high + (high<close_tm1)*close_tm1
