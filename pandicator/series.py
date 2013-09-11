@@ -44,6 +44,7 @@ def rsi(arg, window=14, ma_type='ema'):
     return rval
 
 def wilder_sum(arg, window=14):
+    ''' An internal function of R TTR package '''
     arg = utils.safe_series(arg)
     rval = fast.wilder_sum(arg, window)
     rval.name = arg.name
