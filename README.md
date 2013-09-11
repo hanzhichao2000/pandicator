@@ -1,4 +1,4 @@
 pandicator
 ==========
 
-A technical indicator library based on pandas
+A technical indicator library based on Python Pandas.

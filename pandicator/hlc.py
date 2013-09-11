@@ -49,7 +49,7 @@ def bbands(hlc, window=20, ma_type='sma', sd=2):
     high, low, close = utils.safe_hlc(hlc)
     price = (high + low + close) / 3
     mean = pd.rolling_mean(price, window)
-    sdev = np.sqrt(pd.rolling_std(price, window)**2 / window * (window-1))
+    sdev = utils.biased_rolling_std(price, window=window)
     
     up = mean + sd * sdev
     down = mean - sd * sdev
