@@ -18,3 +18,6 @@ class TestTTR(PITestCase):
         
     def test_wilderSum(self):
         ttr.wilderSum(self.x)
+        
+    def test_BBands(self):
+        ttr.bbands(self.x, n=20)

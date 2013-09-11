@@ -10,7 +10,12 @@ class TestHLC(PITestCase):
         ttr_atr = ttr.atr(self.hlc, 14)
         self.assert_eq(atr, ttr_atr)
         
-    def test_adx(self):  # FIXME: 00 
+    def test_adx(self): 
         adx = hlc.adx(self.hlc, window=14)
         ttr_adx = ttr.adx(self.hlc, 14)
         self.assert_eq(adx, ttr_adx)
+        
+    def test_bbands(self):
+        bb = hlc.bbands(self.hlc, window=20)
+        ttr_bb = ttr.bbands(self.hlc, 20)
+        self.assert_eq(bb, ttr_bb)

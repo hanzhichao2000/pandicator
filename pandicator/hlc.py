@@ -43,3 +43,18 @@ def atr(hlc, window=14):
                              trueHigh=true_high,
                              trueLow=true_low), 
                         index=hlc.index)
+
+def bbands(hlc, window=20, ma_type='sma', sd=2):
+    ''' Bolling Bands '''
+    high, low, close = utils.safe_hlc(hlc)
+    price = (high + low + close) / 3
+    mean = pd.rolling_mean(price, window)
+    sdev = np.sqrt(pd.rolling_std(price, window)**2 / window * (window-1))
+    
+    up = mean + sd * sdev
+    down = mean - sd * sdev
+    pctB = (price - down) / (up - down)
+    
+    return pd.DataFrame(dict(dn=down, mavg=mean, up=up, pctB=pctB),
+                        index=hlc.index)
+    

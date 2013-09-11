@@ -10,17 +10,17 @@ R.library('TTR')
 
 
 class TTR:
-    ADX = R['ADX']  # TODO: 00 TEST
-    ATR = R['ATR']  # TODO: 00 TEST
-    BBands = R['BBands']
+    ADX = R['ADX']  # OK
+    ATR = R['ATR']  # OK
+    BBands = R['BBands']  # OK
     CCI = R['CCI']
     DPO = R['DPO']
-    EMA = R['EMA']  # Implemented.
+    EMA = R['EMA']  # OK
     EMV = R['EMV']
     MFI = R['MFI']
     OBV = R['OBV']
     ROC = R['ROC']
-    RSI = R['RSI']  # Implemented.
+    RSI = R['RSI']  # OK
     SAR = R['SAR']
     stoch = R['stoch']
     SMA = R['SMA']
@@ -64,3 +64,7 @@ def wilderSum(arg, n=14):
     '''wilderSum'''
     return TTR.wilderSum(arg, n)
 
+@r.r_inside
+def bbands(arg, n=20, maType=TTR.SMA, sd=2):
+    '''Bolling Bands'''
+    return TTR.BBands(arg, n, maType, sd)
