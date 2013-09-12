@@ -6,6 +6,8 @@ import copy
 import numpy as np
 import pandas as pd
 
+from pandicator import fast
+
 def safe_series(arg):
     '''Returns arg as a pandas.Series.'''
     copy.deepcopy(arg)
@@ -37,3 +39,8 @@ def safe_name(arg, name):
         
 def biased_rolling_std(arg, window):
     return pd.rolling_std(arg, window) * math.sqrt((window-1) * 1.0 / (window))
+
+
+def rolling_mean_dev(arg, window):
+    mean_rolling = pd.rolling_mean(arg, window)
+    return fast.rolling_mean_dev(arg, mean_rolling, window)

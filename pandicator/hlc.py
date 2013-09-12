@@ -44,11 +44,13 @@ def atr(hlc, window=14):
                              trueLow=true_low), 
                         index=hlc.index)
 
-def bbands(hlc, window=20, ma_type='sma', sd=2):
+
+def bbands(hlc, window=20, ma_type='sma', sd=2, **kwargs):
     ''' Bolling Bands '''
     high, low, close = utils.safe_hlc(hlc)
     price = (high + low + close) / 3
-    mean = pd.rolling_mean(price, window)
+    ma_fn = ma.get_ma(ma_type)
+    mean = ma_fn(price, window, **kwargs)
     sdev = utils.biased_rolling_std(price, window=window)
     
     up = mean + sd * sdev
@@ -57,4 +59,7 @@ def bbands(hlc, window=20, ma_type='sma', sd=2):
     
     return pd.DataFrame(dict(dn=down, mavg=mean, up=up, pctB=pctB),
                         index=hlc.index)
-    
+
+
+def CCI(hlc, window=20, ma_type='sma', **kwargs):
+    pass

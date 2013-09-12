@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 import pandas as pd
 
-from pandicator import utils
+from pandicator import utils as pi_utils
 
 class PITestCase(unittest.TestCase):
 
@@ -15,7 +15,7 @@ class PITestCase(unittest.TestCase):
         self.hlc = pd.DataFrame(dict(High=rng.rand(self.SIZE) + 0.05,
                                      Low=rng.rand(self.SIZE) - 0.05,
                                      Close=rng.rand(self.SIZE)))
-        self.hlc = utils.safe_hlc_df(self.hlc)
+        self.hlc = pi_utils.safe_hlc_df(self.hlc)
 
     def assert_eq(self, *args):
         self.assertTrue(len(args)>1)

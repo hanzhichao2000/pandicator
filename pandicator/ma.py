@@ -13,6 +13,16 @@ from pandicator import utils
 from pandicator import fast
 
 
+def get_ma(ma_type):
+    assert isinstance(ma_type, str)
+    if ma_type == 'sma':
+        return sma
+    elif ma_type == 'ema':
+        return ema
+    else:
+        raise NotImplementedError()
+
+
 def sma(arg, window=10):
     ''' Simple Mean Average '''
     arg = utils.safe_series(arg)
