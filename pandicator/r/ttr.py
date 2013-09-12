@@ -23,7 +23,7 @@ class TTR:
     RSI = R['RSI']  # OK
     SAR = R['SAR']
     stoch = R['stoch']
-    SMA = R['SMA']
+    SMA = R['SMA']  # OK
     SMI = R['SMI']
     TDI = R['TDI']
     TRIX = R['TRIX']
