@@ -49,6 +49,11 @@ def atr(arg, n=14, maType=TTR.EMA):
 
 
 @r.r_inside
+def cci(arg, n=20, maType=TTR.SMA, c=0.015):
+    '''CCI'''
+    return TTR.CCI(arg, n, maType, c)
+
+@r.r_inside
 def ema(arg, n=14, wilder=False):
     '''EMA'''
     return TTR.EMA(arg, n, wilder)

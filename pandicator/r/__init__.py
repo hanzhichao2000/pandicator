@@ -26,6 +26,9 @@ def r_inside(function):
         res = function(*rdata, **kwargs)
         tmpres = rpycom.convert_robj(res)
         dfres = pd.DataFrame(tmpres)
-        return dfres
+        if len(dfres.columns) == 1 and 0 in dfres:
+            return dfres[0]
+        else:
+            return dfres
     _r_inside.__doc__ = function.__doc__
     return _r_inside

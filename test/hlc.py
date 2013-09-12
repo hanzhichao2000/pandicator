@@ -19,3 +19,8 @@ class TestHLC(PITestCase):
         bb = hlc.bbands(self.hlc, window=20)
         ttr_bb = ttr.bbands(self.hlc, 20)
         self.assert_eq(bb, ttr_bb)
+        
+    def test_cci(self):
+        cci = hlc.cci(self.hlc)
+        ttr_cci = ttr.cci(self.hlc)
+        self.assert_eq(cci, ttr_cci)

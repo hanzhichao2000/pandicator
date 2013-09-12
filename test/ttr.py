@@ -9,6 +9,9 @@ class TestTTR(PITestCase):
     
     def test_ATR(self):
         ttr.atr(self.hlc)
+        
+    def test_CCI(self):
+        ttr.cci(self.hlc)
     
     def test_RSI(self):
         ttr.rsi(self.x)

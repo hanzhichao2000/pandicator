@@ -61,5 +61,20 @@ def bbands(hlc, window=20, ma_type='sma', sd=2, **kwargs):
                         index=hlc.index)
 
 
-def CCI(hlc, window=20, ma_type='sma', **kwargs):
-    pass
+def cci(hlc, window=20, ma_type='sma', c=0.015, **kwargs):
+    ''' Commodity Channel Index (CCI) 
+    
+    :returns: pandas.Series
+    '''
+    
+    high, low, close = utils.safe_hlc(hlc)
+    ma_fn = ma.get_ma(ma_type)
+    
+    # true price
+    tp = (high + low + close) / 3
+    tp_mean = ma_fn(tp, window)
+    tp_md = utils.rolling_mean_dev(tp, window)
+    cci_ = (tp - tp_mean) / c / tp_md
+    cci_.name = 'CCI'
+    
+    return cci_

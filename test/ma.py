@@ -27,4 +27,4 @@ class TestMA(PITestCase):
     def test_ttr(self):
         ema = ma.ema(self.x, window=14)
         ttr_ema = ttr.ema(self.x, n=14)
-        self.assert_eq(ema, ttr_ema[0])
+        self.assert_eq(ema, ttr_ema)
