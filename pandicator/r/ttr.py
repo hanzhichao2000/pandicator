@@ -13,7 +13,7 @@ class TTR:
     ADX = R['ADX']  # OK
     ATR = R['ATR']  # OK
     BBands = R['BBands']  # OK
-    CCI = R['CCI']
+    CCI = R['CCI']  # OK
     DPO = R['DPO']
     EMA = R['EMA']  # OK
     EMV = R['EMV']
