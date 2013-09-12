@@ -1,6 +1,7 @@
 '''
 This module contains some common methods.
 '''
+import math
 import copy
 import numpy as np
 import pandas as pd
@@ -35,4 +36,4 @@ def safe_name(arg, name):
         arg.name = '%s(%s)' % (name, arg.name)
         
 def biased_rolling_std(arg, window):
-    return np.sqrt(pd.rolling_std(arg, window)**2 / window * (window-1))
+    return pd.rolling_std(arg, window) * math.sqrt((window-1) * 1.0 / (window))
