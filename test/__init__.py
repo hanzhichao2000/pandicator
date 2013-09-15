@@ -1,3 +1,4 @@
+import copy
 import unittest
 
 import numpy as np
@@ -7,7 +8,7 @@ from pandicator import utils as pi_utils
 
 class PITestCase(unittest.TestCase):
 
-    SIZE = 1000
+    SIZE = 5000
 
     def setUp(self):
         rng = np.random.RandomState(123)
@@ -16,6 +17,8 @@ class PITestCase(unittest.TestCase):
                                      Low=rng.rand(self.SIZE) - 0.05,
                                      Close=rng.rand(self.SIZE)))
         self.hlc = pi_utils.safe_hlc_df(self.hlc)
+        self.hl = copy.deepcopy(self.hlc)
+        del self.hl['close']      
 
     def assert_eq(self, *args):
         self.assertTrue(len(args)>1)

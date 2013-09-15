@@ -46,6 +46,9 @@ def safe_name(arg, name):
 def biased_rolling_std(arg, window):
     return pd.rolling_std(arg, window) * math.sqrt((window-1) * 1.0 / (window))
 
+def biased_std(arg):
+    size = len(arg)
+    return np.std(arg) * math.sqrt((size-1)*1.0/size)
 
 def rolling_mean_dev(arg, window):
     mean_rolling = pd.rolling_mean(arg, window)

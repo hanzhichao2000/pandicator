@@ -21,7 +21,7 @@ class TTR:
     OBV = R['OBV']
     ROC = R['ROC']
     RSI = R['RSI']  # OK
-    SAR = R['SAR']
+    SAR = R['SAR']  # ing
     stoch = R['stoch']
     SMA = R['SMA']  # OK
     SMI = R['SMI']
@@ -73,3 +73,8 @@ def wilderSum(arg, n=14):
 def bbands(arg, n=20, maType=TTR.SMA, sd=2):
     '''Bolling Bands'''
     return TTR.BBands(arg, n, maType, sd)
+
+@r.r_inside
+def sar(arg, accel=[0.02, 0.2]):
+    '''Parabolic Stop-and-Reverse'''
+    return TTR.SAR(arg, accel)

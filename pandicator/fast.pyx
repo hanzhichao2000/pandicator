@@ -45,3 +45,94 @@ def rolling_mean_dev(np.ndarray[DTYPE_t, ndim=1] arg,
                 summer += adder
             rval[i] = summer / window
     return rval
+
+
+def sar(np.ndarray[DTYPE_t, ndim=1] high,
+        np.ndarray[DTYPE_t, ndim=1] low,
+        double accel, double accel_max,
+        int sig_init, double gap_init):
+    cdef int i
+    cdef int size = high.shape[0]
+    cdef int beg = 1
+    for i in xrange(size):
+        if np.isnan(high[i]) or np.isnan(low[i]):
+            beg += 1
+        else:
+            break
+    
+    cdef sig0 = sig_init
+    cdef sig1 = 0
+    
+    cdef double xp0 
+    cdef double xp1 = 0
+    
+    if sig_init == 1:
+        xp0 = high[beg-1]
+    else:
+        xp0 = low[beg-1]
+    
+    cdef double af0 = accel
+    cdef double af1 = 0
+    
+    cdef double local_min
+    cdef double local_max
+    
+    cdef np.ndarray[DTYPE_t, ndim=1] rval = np.zeros_like(high)
+    if sig_init == 1:
+        rval[beg-1] = low[beg-1] - gap_init
+    else:
+        rval[beg-1] = high[beg-1] + gap_init
+    
+    for i in xrange(beg, size):
+        sig1 = sig0
+        xp1 = xp0
+        af1 = af0
+        
+        if low[i] < low[i-1]:
+            local_min = low[i]
+        else:
+            local_min = low[i-1]
+        if high[i] > high[i-1]:
+            local_max = high[i]
+        else:
+            local_max = high[i-1]
+        
+        if sig1 == 1:
+            if low[i] > rval[i-1]:
+                sig0 = 1
+            else:
+                sig0 = -1
+            if local_max > xp1:
+                xp0 = local_max
+            else:
+                xp0 = xp1
+        else:
+            if high[i] < rval[i-1]:
+                sig0 = -1
+            else:
+                sig0 = 1
+            if local_min < xp1:
+                xp0 = local_min
+            else:
+                xp0 = xp1
+        
+        if sig0 == sig1:
+            rval[i] = rval[i-1] + (xp1-rval[i-1]) * af1
+            if sig0 == 1:
+                if xp0 > xp1:
+                    af0 = af0 + accel
+                    if af0 > accel_max:
+                        af0 = accel_max
+                if rval[i] > local_min:
+                    rval[i] = local_min
+            else:
+                if xp0 < xp1:
+                    af0 = af0 + accel
+                    if af0 > accel_max:
+                        af0 = accel_max
+                if rval[i] < local_max:
+                    rval[i] = local_max
+        else:
+            af0 = accel
+            rval[i] = xp0
+    return rval
