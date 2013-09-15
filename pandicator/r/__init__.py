@@ -26,6 +26,7 @@ def r_inside(function):
         for i, e in enumerate(rdata):
             if isinstance(e, tuple):  # tuple can't be transmitted to robj
                 rdata[i] = list(e)
+            assert not isinstance(rdata[i], tuple)
         res = function(*rdata, **kwargs)
         tmpres = rpycom.convert_robj(res)
         dfres = pd.DataFrame(tmpres)
