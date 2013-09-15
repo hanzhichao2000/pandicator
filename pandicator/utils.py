@@ -8,28 +8,32 @@ import pandas as pd
 
 from pandicator import fast
 
-def safe_series(arg):
+def safe_series(arg, inplace=False):
     '''Returns arg as a pandas.Series.'''
-    copy.deepcopy(arg)
+    if not inplace:
+        arg = copy.deepcopy(arg)
     if not isinstance(arg, pd.Series):
         return pd.Series(arg)
     return arg
 
-def safe_hlc(arg):
+def safe_hlc(arg, inplace=False):
     '''Return the arg in default ``high``, ``low``, ``close`` key. '''
-    arg = copy.deepcopy(arg)
+    if not inplace:
+        arg = copy.deepcopy(arg)
     arg.columns = [c.lower() for c in arg.columns]
     return arg.high, arg.low, arg.close
 
-def safe_hl(arg):
+def safe_hl(arg, inplace=False):
     '''Return the arg in default ``high``, ``low`` key. '''
-    arg = copy.deepcopy(arg)
+    if not inplace:
+        arg = copy.deepcopy(arg)
     arg.columns = [c.lower() for c in arg.columns]
     return arg.high, arg.low
 
-def safe_hlc_df(arg):
+def safe_hlc_df(arg, inplace=False):
     '''Return a DataFrame containing only high, low, close.'''
-    arg = copy.deepcopy(arg)
+    if not inplace:
+        arg = copy.deepcopy(arg)
     arg.columns = [c.lower() for c in arg.columns]
     for c in arg.columns:
         if c not in ['high', 'low', 'close']:
