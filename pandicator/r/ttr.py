@@ -21,7 +21,7 @@ class TTR:
     OBV = R['OBV']
     ROC = R['ROC']
     RSI = R['RSI']  # OK
-    SAR = R['SAR']  # ing
+    SAR = R['SAR']  # OK
     stoch = R['stoch']
     SMA = R['SMA']  # OK
     SMI = R['SMI']
