@@ -21,6 +21,12 @@ def safe_hlc(arg):
     arg.columns = [c.lower() for c in arg.columns]
     return arg.high, arg.low, arg.close
 
+def safe_hl(arg):
+    '''Return the arg in default ``high``, ``low`` key. '''
+    arg = copy.deepcopy(arg)
+    arg.columns = [c.lower() for c in arg.columns]
+    return arg.high, arg.low
+
 def safe_hlc_df(arg):
     '''Return a DataFrame containing only high, low, close.'''
     arg = copy.deepcopy(arg)
