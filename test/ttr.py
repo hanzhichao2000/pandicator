@@ -26,4 +26,4 @@ class TestTTR(PITestCase):
         ttr.bbands(self.x, n=20)
         
     def test_SAR(self):
-        print ttr.sar(self.hl)
+        ttr.sar(self.hl)
