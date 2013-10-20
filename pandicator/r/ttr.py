@@ -14,7 +14,7 @@ class TTR:
     ATR = R['ATR']  # OK
     BBands = R['BBands']  # OK
     CCI = R['CCI']  # OK
-    DPO = R['DPO']
+    DPO = R['DPO']  # OK
     EMA = R['EMA']  # OK
     EMV = R['EMV']
     MFI = R['MFI']

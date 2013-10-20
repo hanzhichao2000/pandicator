@@ -29,12 +29,12 @@ class PITestCase(unittest.TestCase):
             
         if isinstance(arg0, pd.Series):
             for a in args[1: ]:
-                self.assertTrue((arg0[-200:]-a[-200:]).abs().mean()<1e6)
+                self.assertTrue(np.abs(np.asarray(arg0[-200:-50])-np.asarray(a[-200:-50])).mean()<1e-2)
         elif isinstance(arg0, pd.DataFrame):
             for col in arg0:
                 for a in args[1: ]:
                     self.assertTrue(
-                        (arg0[col][-200:]-a[col][-200:]).abs().mean()<1e6,
+                        np.abs(np.asarray(arg0[col][-200:-50])-np.asarray(a[col][-200:-50])).mean()<1e-2,
                         '%s should be all close!' % col)
         else:
             raise NotImplementedError()
