@@ -18,6 +18,7 @@ class PITestCase(unittest.TestCase):
                                      Close=rng.rand(self.SIZE)))
         self.hlc = pi_utils.safe_hlc_df(self.hlc)
         self.hl = copy.deepcopy(self.hlc)
+        self.vol = pd.Series(rng.rand(self.SIZE)*1e3+1e5, name='Volume')
         del self.hl['close']      
 
     def assert_eq(self, *args):

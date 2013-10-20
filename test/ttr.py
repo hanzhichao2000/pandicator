@@ -6,6 +6,9 @@ class TestTTR(PITestCase):
 
     def test_ADX(self):
         ttr.adx(self.hlc)
+        
+    def test_EMV(self):
+        ttr.emv(self.hl, self.vol)
     
     def test_ATR(self):
         ttr.atr(self.hlc)

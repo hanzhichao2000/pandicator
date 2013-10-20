@@ -16,7 +16,7 @@ class TTR:
     CCI = R['CCI']  # OK
     DPO = R['DPO']  # OK
     EMA = R['EMA']  # OK
-    EMV = R['EMV']
+    EMV = R['EMV']  # OK
     MFI = R['MFI']
     OBV = R['OBV']
     ROC = R['ROC']
@@ -35,6 +35,13 @@ class TTR:
     aroon = R['aroon']
     wilderSum = R['wilderSum']
 
+
+@r.r_inside
+def emv(hl, volume, n=9, maType=TTR.SMA, vol_divisor=1000):
+    '''EMV'''
+    return TTR.EMV(hl, volume, n, maType, vol_divisor)
+
+    
 @r.r_inside
 def dpo(arg, n=14, maType=TTR.SMA):
     '''DPO'''

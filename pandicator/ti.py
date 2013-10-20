@@ -6,6 +6,17 @@ import pandas as pd
 from pandicator import utils, fast, ma
 
 
+def emv(hl, volume, window=9, ma_type='sma', vol_divisor=1000):
+    '''EMV'''
+    high, low = utils.safe_hl(hl)
+    volume = utils.safe_series(volume)
+    mid = .5 * (high + low)
+    volume /= vol_divisor
+    rval = (mid - mid.shift(1)) / (volume / (high - low))
+    rval_ma = ma.get_ma(ma_type)(rval, window)
+    return pd.DataFrame(dict(emv=rval, maEMV=rval_ma), index=hl.index)
+    
+
 def rsi(arg, window=14, ma_type='ema'):
     ''' Relative strength index '''
 
