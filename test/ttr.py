@@ -13,6 +13,9 @@ class TestTTR(PITestCase):
     def test_CCI(self):
         ttr.cci(self.hlc)
     
+    def test_DPO(self):
+        ttr.dpo(self.x)
+    
     def test_RSI(self):
         ttr.rsi(self.x)
 

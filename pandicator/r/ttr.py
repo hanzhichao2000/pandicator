@@ -35,6 +35,11 @@ class TTR:
     aroon = R['aroon']
     wilderSum = R['wilderSum']
 
+@r.r_inside
+def dpo(arg, n=14, maType=TTR.SMA):
+    '''DPO'''
+    return TTR.DPO(arg, n, maType)
+    
 
 @r.r_inside
 def adx(arg, n=14, maType=TTR.EMA):
@@ -53,6 +58,7 @@ def cci(arg, n=20, maType=TTR.SMA, c=0.015):
     '''CCI'''
     return TTR.CCI(arg, n, maType, c)
 
+
 @r.r_inside
 def ema(arg, n=14, wilder=False):
     '''EMA'''
@@ -64,15 +70,18 @@ def rsi(arg, n=14, maType=TTR.SMA):
     '''RSI'''
     return TTR.RSI(arg, n, maType)
 
+
 @r.r_inside
 def wilderSum(arg, n=14):
     '''wilderSum'''
     return TTR.wilderSum(arg, n)
 
+
 @r.r_inside
 def bbands(arg, n=20, maType=TTR.SMA, sd=2):
     '''Bolling Bands'''
     return TTR.BBands(arg, n, maType, sd)
+
 
 @r.r_inside
 def sar(arg, accel=[0.02, 0.2]):

@@ -7,6 +7,12 @@ from pandicator.r import ttr
 from test import PITestCase
 
 class TestSeries(PITestCase):
+    
+    def test_dpo(self):
+        y = series.dpo(self.x, window=14)
+        ry = ttr.dpo(self.x, n=14)
+        self.assertTrue(len(y)==self.SIZE)
+        self.assert_eq(y, ry)
 
     def test_rsi(self):
         y = series.rsi(self.x, ma_type='sma')

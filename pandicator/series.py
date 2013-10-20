@@ -43,12 +43,34 @@ def rsi(arg, window=14, ma_type='ema'):
 
     return rval
 
+
 def wilder_sum(arg, window=14):
     ''' An internal function of R TTR package '''
     arg = utils.safe_series(arg)
     rval = fast.wilder_sum(arg, window)
     rval.name = arg.name
     utils.safe_name(rval, name='wilderSum')
+    rval.index = arg.index
+    
+    return rval
+
+
+def dpo(arg, window, ma_type='sma', shift=None, percent=False):
+    if shift is None:
+        shift = window / 2 + 1
+        
+    arg = utils.safe_series(arg)
+    ma_fn = eval('ma.%s'%ma_type)
+    arg_mean = ma_fn(arg, window=window)
+    arg_mean = arg_mean.shift(-shift)
+    
+    if percent:
+        rval = 100 * (arg/arg_mean - 1)
+    else:
+        rval = arg - arg_mean
+    
+    rval.name = arg.name
+    utils.safe_name(rval, name='DPO')
     rval.index = arg.index
     
     return rval
