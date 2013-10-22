@@ -6,10 +6,43 @@ import pandas as pd
 from pandicator import utils, fast, ma
 
 
+def obv(price, volume):
+    '''OBV'''
+    price = utils.safe_series(price)
+    volume = utils.safe_series(volume)
+    obv = (roc(price) > 0).astype(int) * volume - (roc(price) <= 0).astype(int) * volume
+    obv[0:1] = volume[0:1]
+    obv = obv.cumsum()
+    
+    rval = obv
+    utils.safe_name(rval, name='OBV')
+    rval.index = price.index
+    
+    return rval
+
+
+def roc(arg, window=1, type_='continuous'):
+    arg = utils.safe_series(arg)
+    arg = arg.astype(float)
+    if type_ == 'continuous':
+        rval = np.log(arg) - np.log(arg.shift(window))
+    elif type_ == 'discrete':
+        rval = arg / arg.shift(window) - 1
+    else:
+        raise NotImplementedError()
+    
+    rval.name = arg.name
+    utils.safe_name(rval, name='ROC')
+    rval.index = arg.index
+    
+    return rval
+
+
+
 def mfi(hlc, volume, window=14):
     '''MFI'''
     high, low, close = utils.safe_hlc(hlc)
-    volume = utils.safe_series(volume)
+    volume = utils.safe_series(volume) / 1000
     price = (high+low+close) * 1.0 / 3
     mf = price * volume
     pmf = (mf > mf.shift(1)).astype(int) * mf

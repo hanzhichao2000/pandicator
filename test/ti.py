@@ -6,10 +6,24 @@ from pandicator.r import ttr
 from test import PITestCase
 
 class TestIndicator(PITestCase):
+        
+    def test_obv(self):
+        y = ti.obv(self.x, self.vol)
+        ry = ttr.obv(self.x, self.vol)
+        self.assert_eq(y, ry) 
     
     def test_mfi(self):
         y = ti.mfi(self.hlc, self.vol, 14)
         ry = ttr.mfi(self.hlc, self.vol, 14)
+        self.assert_eq(y, ry)
+        
+    def test_roc(self):
+        y = ti.roc(self.x, 1, type_='continuous')
+        ry = ttr.roc(self.x, 1, type_='continuous')
+        self.assert_eq(y, ry)
+        
+        y = ti.roc(self.x, 10, type_='discrete')
+        ry = ttr.roc(self.x, 10, type_='discrete')
         self.assert_eq(y, ry)
     
     def test_emv(self):

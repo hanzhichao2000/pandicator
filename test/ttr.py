@@ -7,6 +7,13 @@ class TestTTR(PITestCase):
     def test_ADX(self):
         ttr.adx(self.hlc)
         
+    def test_OBV(self):
+        ttr.obv(self.x, self.vol)
+        
+    def test_ROC(self):
+        ttr.roc(self.x, type_='continuous')
+        ttr.roc(self.x, type_='discrete')
+        
     def test_EMV(self):
         ttr.emv(self.hl, self.vol)
     
