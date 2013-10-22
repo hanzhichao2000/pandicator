@@ -37,6 +37,12 @@ class TTR:
 
 
 @r.r_inside
+def mfi(hlc, volume, n=14):
+    '''MFI'''
+    return TTR.MFI(hlc, volume, n)
+
+
+@r.r_inside
 def emv(hl, volume, n=9, maType=TTR.SMA, vol_divisor=1000):
     '''EMV'''
     return TTR.EMV(hl, volume, n, maType, vol_divisor)

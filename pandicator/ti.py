@@ -6,6 +6,23 @@ import pandas as pd
 from pandicator import utils, fast, ma
 
 
+def mfi(hlc, volume, window=14):
+    '''MFI'''
+    high, low, close = utils.safe_hlc(hlc)
+    volume = utils.safe_series(volume)
+    price = (high+low+close) * 1.0 / 3
+    mf = price * volume
+    pmf = (mf > mf.shift(1)).astype(int) * mf
+    nmf = (mf < mf.shift(1)).astype(int) * mf
+    mr = pd.rolling_sum(pmf, window) / pd.rolling_sum(nmf, window)
+    
+    rval = 100 - (100/(1 + mr))
+    utils.safe_name(rval, name='MFI')
+    rval.index = hlc.index
+    
+    return rval    
+
+
 def emv(hl, volume, window=9, ma_type='sma', vol_divisor=1000):
     '''EMV'''
     high, low = utils.safe_hl(hl)

@@ -7,6 +7,11 @@ from test import PITestCase
 
 class TestIndicator(PITestCase):
     
+    def test_mfi(self):
+        y = ti.mfi(self.hlc, self.vol, 14)
+        ry = ttr.mfi(self.hlc, self.vol, 14)
+        self.assert_eq(y, ry)
+    
     def test_emv(self):
         y = ti.emv(self.hl, self.vol)
         ry = ttr.emv(self.hl, self.vol)

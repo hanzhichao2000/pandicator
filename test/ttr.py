@@ -33,3 +33,6 @@ class TestTTR(PITestCase):
         
     def test_SAR(self):
         ttr.sar(self.hl)
+        
+    def test_MFI(self):
+        ttr.mfi(self.hlc, self.vol, n=14)
