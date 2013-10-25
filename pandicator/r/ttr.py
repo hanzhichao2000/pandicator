@@ -25,7 +25,7 @@ class TTR:
     stoch = R['stoch']  # OK
     SMA = R['SMA']  # OK
     SMI = R['SMI']  # OK
-    TDI = R['TDI']
+    TDI = R['TDI']  # OK
     TRIX = R['TRIX']
     VHF = R['VHF']
     volatility = R['volatility']
@@ -34,6 +34,11 @@ class TTR:
     adjRatios = R['adjRatios']
     aroon = R['aroon']
     wilderSum = R['wilderSum']
+
+
+@r.r_inside
+def tdi(price, n=20, multiple=2):
+    return TTR.TDI(price, n, multiple)
 
 
 @r.r_inside

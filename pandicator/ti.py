@@ -6,6 +6,22 @@ import pandas as pd
 from pandicator import utils, fast, ma
 
 
+def tdi(price, window=20, multiple=2):
+    ''' Trend Detection Index '''
+    price = utils.safe_series(price)
+    mom = price - price.shift(window)
+    mom[np.isnan(mom)] = 0
+    
+    di = pd.rolling_sum(mom, window)
+    di_abs = di.abs()
+    
+    mom_2n_abs = pd.rolling_sum(mom.abs(), window*multiple)
+    mom_1n_abs = pd.rolling_sum(mom.abs(), window)
+    
+    tdi_ = di_abs - (mom_2n_abs - mom_1n_abs)
+    return pd.DataFrame(dict(tdi=tdi_, di=di), index=price.index)
+
+
 def smi(hlc, window=13, n_fast=2, n_slow=25, n_sig=9, ma_type='sma', bounded=True):
     ''' Stochastic Momentum Index '''
     high, low, close = utils.safe_hlc(hlc)
@@ -31,8 +47,6 @@ def smi(hlc, window=13, n_fast=2, n_slow=25, n_sig=9, ma_type='sma', bounded=Tru
     
     return pd.DataFrame(dict(SMI=smi_, signal=signal), index=hlc.index)
     
-    
-
 
 def stoch(hlc, n_fastK=14, n_fastD=3, n_slowD=3, ma_type='sma', bounded=True, smooth=1):
     ''' Stochastic Oscillator '''

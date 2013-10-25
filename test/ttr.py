@@ -4,6 +4,9 @@ from test import PITestCase
 
 class TestTTR(PITestCase):
     
+    def test_tdi(self):
+        ttr.tdi(self.x)
+    
     def test_smi(self):
         ttr.smi(self.hlc)
     
