@@ -7,6 +7,11 @@ from test import PITestCase
 
 class TestIndicator(PITestCase):
     
+    def test_smi(self):
+        y = ti.smi(self.hlc)
+        ry = ttr.smi(self.hlc)
+        self.assert_eq(y, ry)
+    
     def test_stoch(self):
         y = ti.stoch(self.hlc)
         ry = ttr.stoch(self.hlc)

@@ -6,8 +6,36 @@ import pandas as pd
 from pandicator import utils, fast, ma
 
 
+def smi(hlc, window=13, n_fast=2, n_slow=25, n_sig=9, ma_type='sma', bounded=True):
+    ''' Stochastic Momentum Index '''
+    high, low, close = utils.safe_hlc(hlc)
+    
+    if bounded:
+        hmax = pd.rolling_max(high, window) 
+        lmin = pd.rolling_min(low, window)
+    else:
+        raise NotImplementedError()
+    
+    hl_diff = hmax - lmin
+    c_diff = close - (hmax+lmin) / 2
+    
+    mafunc = ma.get_ma(ma_type)
+    
+    num0 = mafunc(c_diff, n_slow)
+    den0 = mafunc(hl_diff, n_slow)
+    num1 = mafunc(num0, n_fast)
+    den1 = mafunc(den0, n_fast)
+    
+    smi_ = 100 * (num1 / den1 * 2)
+    signal = mafunc(smi_, n_sig)
+    
+    return pd.DataFrame(dict(SMI=smi_, signal=signal), index=hlc.index)
+    
+    
+
+
 def stoch(hlc, n_fastK=14, n_fastD=3, n_slowD=3, ma_type='sma', bounded=True, smooth=1):
-    ''' Stochastic Oscillator / Stochastic Momentum Index '''
+    ''' Stochastic Oscillator '''
     high, low, close = utils.safe_hlc(hlc)
     
     if bounded:

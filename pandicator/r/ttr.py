@@ -24,7 +24,7 @@ class TTR:
     SAR = R['SAR']  # OK
     stoch = R['stoch']  # OK
     SMA = R['SMA']  # OK
-    SMI = R['SMI']
+    SMI = R['SMI']  # OK
     TDI = R['TDI']
     TRIX = R['TRIX']
     VHF = R['VHF']
@@ -34,6 +34,11 @@ class TTR:
     adjRatios = R['adjRatios']
     aroon = R['aroon']
     wilderSum = R['wilderSum']
+
+
+@r.r_inside
+def smi(hlc, n=13, n_fast=2, n_slow=25, n_sig=9, ma_type=TTR.SMA, bounded=True):
+    return TTR.SMI(hlc, n, n_fast, n_slow, n_sig, ma_type, bounded)
 
 
 @r.r_inside

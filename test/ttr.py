@@ -4,6 +4,9 @@ from test import PITestCase
 
 class TestTTR(PITestCase):
     
+    def test_smi(self):
+        ttr.smi(self.hlc)
+    
     def test_stoch(self):
         ttr.stoch(self.hlc)
 
