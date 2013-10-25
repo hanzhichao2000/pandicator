@@ -7,6 +7,15 @@ from test import PITestCase
 
 class TestIndicator(PITestCase):
     
+    def test_trix(self):
+        y = ti.trix(self.x)
+        ry = ttr.trix(self.x)
+        self.assert_eq(y, ry)
+        
+        y = ti.trix(self.x, 17, 4, percent=False)
+        ry = ttr.trix(self.x, 17, 4, percent=False)
+        self.assert_eq(y, ry)
+    
     def test_tdi(self):
         y = ti.tdi(self.x)
         ry = ttr.tdi(self.x)

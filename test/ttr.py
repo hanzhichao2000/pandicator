@@ -4,6 +4,9 @@ from test import PITestCase
 
 class TestTTR(PITestCase):
     
+    def test_trix(self):
+        return ttr.trix(self.x)
+    
     def test_tdi(self):
         ttr.tdi(self.x)
     

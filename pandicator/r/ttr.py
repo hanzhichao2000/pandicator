@@ -37,6 +37,10 @@ class TTR:
 
 
 @r.r_inside
+def trix(price, n=20, n_sig=9, ma_type=TTR.EMA, percent=True):
+    return TTR.TRIX(price, n, n_sig, ma_type, percent)
+
+@r.r_inside
 def tdi(price, n=20, multiple=2):
     return TTR.TDI(price, n, multiple)
 

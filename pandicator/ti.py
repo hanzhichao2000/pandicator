@@ -1,9 +1,25 @@
-import copy
+import warnings
 
 import numpy as np
 import pandas as pd
 
 from pandicator import utils, fast, ma
+
+
+def trix(price, window=20, n_sig=9, ma_type='ema', percent=True):
+    ''' Triple Smoothed Exponential Oscillator '''
+    warnings.warn('The parameter of n_sig is not used in TTR. So currently it is not used as well here for unittest purpose.')
+    price = utils.safe_series(price)
+    mafunc = ma.get_ma(ma_type)
+    mavg0 = mafunc(price, window)
+    mavg1 = mafunc(mavg0, window)
+    mavg2 = mafunc(mavg1, window)
+    if percent:
+        trix_ = 100 * roc(mavg2, window=1, type_='discrete')
+    else:
+        trix_ = mavg2 - mavg2.shift(1)
+    signal = mafunc(trix_, window)
+    return pd.DataFrame(dict(TRIX=trix_, signal=signal), index=price.index)
 
 
 def tdi(price, window=20, multiple=2):
