@@ -6,6 +6,15 @@ from pandicator.r import ttr
 from test import PITestCase
 
 class TestIndicator(PITestCase):
+    
+    def test_stoch(self):
+        y = ti.stoch(self.hlc)
+        ry = ttr.stoch(self.hlc)
+        self.assert_eq(y, ry)
+        
+        y = ti.stoch(self.hlc, n_fastK=15, n_fastD=5, n_slowD=4, smooth=3)
+        ry = ttr.stoch(self.hlc, n_fastK=15, n_fastD=5, n_slowD=4, smooth=3)
+        self.assert_eq(y, ry)
         
     def test_obv(self):
         y = ti.obv(self.x, self.vol)

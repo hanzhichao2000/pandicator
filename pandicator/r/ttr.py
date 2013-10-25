@@ -18,11 +18,11 @@ class TTR:
     EMA = R['EMA']  # OK
     EMV = R['EMV']  # OK
     MFI = R['MFI']  # OK
-    OBV = R['OBV']  
-    ROC = R['ROC']
+    OBV = R['OBV']  # OK
+    ROC = R['ROC']  # OK
     RSI = R['RSI']  # OK
     SAR = R['SAR']  # OK
-    stoch = R['stoch']
+    stoch = R['stoch']  # OK
     SMA = R['SMA']  # OK
     SMI = R['SMI']
     TDI = R['TDI']
@@ -34,6 +34,12 @@ class TTR:
     adjRatios = R['adjRatios']
     aroon = R['aroon']
     wilderSum = R['wilderSum']
+
+
+@r.r_inside
+def stoch(hlc, n_fastK=14, n_fastD=3, n_slowD=3, ma_type=TTR.SMA, bounded=True, smooth=1):
+    return TTR.stoch(hlc, n_fastK, n_fastD, n_slowD, ma_type, bounded, smooth)
+
 
 @r.r_inside
 def roc(x, n=1, type_='continuous'):

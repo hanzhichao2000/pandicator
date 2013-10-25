@@ -6,6 +6,34 @@ import pandas as pd
 from pandicator import utils, fast, ma
 
 
+def stoch(hlc, n_fastK=14, n_fastD=3, n_slowD=3, ma_type='sma', bounded=True, smooth=1):
+    ''' Stochastic Oscillator / Stochastic Momentum Index '''
+    high, low, close = utils.safe_hlc(hlc)
+    
+    if bounded:
+        hmax = pd.rolling_max(high, n_fastK) 
+        lmin = pd.rolling_min(low, n_fastK)
+    else:
+        raise NotImplementedError()
+    
+    num = close - lmin
+    den = hmax - lmin
+    
+    mafunc = ma.get_ma(ma_type)
+    num_ma = mafunc(num, smooth)
+    den_ma = mafunc(den, smooth)
+    
+    fastK = num_ma / den_ma
+    fastK[np.isnan(fastK)] = 0.5
+    fastD = mafunc(fastK, n_fastD)
+    slowD = mafunc(fastD, n_slowD)
+    
+    return pd.DataFrame(dict(fastK=fastK, 
+                             fastD=fastD, 
+                             slowD=slowD), 
+                        index=hlc.index)
+    
+
 def obv(price, volume):
     '''OBV'''
     price = utils.safe_series(price)

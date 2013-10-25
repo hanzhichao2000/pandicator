@@ -3,6 +3,9 @@ from pandicator.r import ttr
 from test import PITestCase
 
 class TestTTR(PITestCase):
+    
+    def test_stoch(self):
+        ttr.stoch(self.hlc)
 
     def test_ADX(self):
         ttr.adx(self.hlc)
